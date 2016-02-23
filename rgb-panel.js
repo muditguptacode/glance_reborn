@@ -7,6 +7,13 @@ function RGBPanel(port, baudrate)
     this.port = port || '/dev/ttyUSB0';
     this.baudrate = baudrate || 115200;
     this.rgbMatrixDisplay = null;
+    
+    //scope binding statements
+    this.init = this.init.bind(this);
+    this.decimalToBinary = this.decimalToBinary.bind(this);
+    this.drawString = this.drawString.bind(this);
+    this.drawChar = this.drawChar.bind(this);
+    this.clearDisplay = this.clearDisplay.bind(this);
 }
 
 RGBPanel.prototype.init = function(callback)
@@ -37,12 +44,39 @@ RGBPanel.prototype.decimalToBinary = function(dec,length)
   return out;  
 }
 
-RGBPanel.prototype.drawString = function(characterString, x, y, r, g, b)
+RGBPanel.prototype.drawString = function(characterString, x, y, r, g, b, clearInterval, scrollInterval)
 {
+    if(characterString.length > 5)
+    {
+        setTimeout(function(self)
+        {
+            for(var characterIndex in characterString)
+            {
+                self.drawChar(characterString[characterIndex], x+(characterIndex*6), y, 0, 0, 0);
+            }
+        }, clearInterval, this);
+        
+        setTimeout(function(self)
+        {
+            self.drawString(characterString.slice(1, characterString.length), x, y, r, g, b, scrollInterval)
+        }, scrollInterval, this);
+    }
     for(var characterIndex in characterString)
     {
         this.drawChar(characterString[characterIndex], x+(characterIndex*6), y, r, g, b);
-    }    
+    }
+       
+}
+
+RGBPanel.prototype.clearDisplay = function()
+{
+    for(var x=0;x<32;x++)
+    {    
+        for(var y=0;y<16;y++)
+        {    
+            this.rgbMatrixDisplay.write(x+","+y+","+0+","+0+","+0+"*");
+        }
+    }
 }
 
 RGBPanel.prototype.drawChar = function(character, x, y, r, g, b)

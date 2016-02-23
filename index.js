@@ -13,5 +13,5 @@ var rgbPanel = new RGBPanel('/dev/ttyUSB0', 115200);
 
 rgbPanel.init(function()
 {
-    rgbPanel.drawString('ABCDEFG', 0, 0, 7, 7, 7);
+    rgbPanel.drawString('ABCDEFGHIJKLMNO', 0, 0, 7, 7, 7, 5000, 10000);
 });
