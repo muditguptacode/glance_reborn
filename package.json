@@ -1,0 +1,16 @@
+{
+  "name": "glance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mudit gupta",
+  "license": "ISC",
+  "dependencies": {
+    "eightbyeight": "git+https://github.com/muditguptacode/eightbyeight.git",
+    "i2c": "^0.2.1",
+    "underscore": "^1.8.3"
+  }
+}
