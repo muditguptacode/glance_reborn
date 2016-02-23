@@ -11,6 +11,7 @@
   "dependencies": {
     "eightbyeight": "git+https://github.com/muditguptacode/eightbyeight.git",
     "i2c": "^0.2.1",
+    "serialport": "^2.0.6",
     "underscore": "^1.8.3"
   }
 }
